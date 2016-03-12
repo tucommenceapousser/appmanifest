@@ -101,9 +101,10 @@ function generateHead(form) {
     '<meta name="apple-mobile-web-app-capable" content="yes">'
   ];
 
-  if (form.name) {
-    meta.push('<meta name="application-name" content="' + form.name + '">');
-    meta.push('<meta name="apple-mobile-web-app-title" content="' + form.name + '">');;
+  var name = form.short_name || form.name;
+  if (name) {
+    meta.push('<meta name="application-name" content="' + name + '">');
+    meta.push('<meta name="apple-mobile-web-app-title" content="' + name + '">');;
   }
 
   if (form.theme_color) {
@@ -155,9 +156,9 @@ function updateOutput() {
 }
 
 function copy(node) {
-  window.getSelection().removeAllRanges();
   var range = document.createRange();
   range.selectNodeContents(node);
+  window.getSelection().removeAllRanges(); // ensure no current selection, otherwise copy may fail
   window.getSelection().addRange(range);
 
   try {
