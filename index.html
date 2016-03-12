@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Web App Manifest Generator</title>
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0275d8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="canonical" href="https://tomitm.github.io/appmanifest/" />
+    <link rel="stylesheet" href="https://npmcdn.com/bootstrap@4.0.0-alpha.2/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://npmcdn.com/font-awesome@4.5.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <style media="screen">
+      body {
+        margin-top: 75px;
+      }
+
+      .btn-collapse {
+        padding: 0.15rem 0.75rem;
+        margin-top: -.5rem;
+      }
+
+      .btn-copy {
+        float: right;
+        color: #ccc;
+        cursor: pointer;
+      }
+
+      .navbar {
+        box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+      }
+
+      .output {
+        background-color: #fbfbfb;
+        color: #999;
+      }
+
+      .footer {
+        border-top: 1px solid silver;
+        padding: 30px 10px;
+        margin-top: 15px;
+        color: #818a91;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-fixed-top navbar-dark bg-primary">
+      <a class="navbar-brand hidden-xs-down"><i class="fa fa-cog"></i> Web App Manifest Generator</a>
+      <a class="navbar-brand hidden-sm-up">Manifest Generator</a>
+      <ul class="nav navbar-nav pull-xs-right">
+        <li class="nav-item"><a class="nav-link" href="https://developer.mozilla.org/en-US/docs/Web/Manifest">MDN</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://www.w3.org/TR/appmanifest/">Spec</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://github.com/tomitm/appmanifest"><i class="fa fa-github fa-fw fa-lg"></i></a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <p>
+            <i class="fa fa-magic"></i>
+            Web App Manifests are one of the key pieces to making your web app look and feel like a native app. <a href="https://developers.google.com/web/updates/2014/11/Support-for-installable-web-apps-with-webapp-manifest-in-chrome-38-for-Android?hl=en">Learn more</a>
+            <br />
+            <small>Everything is optional, although most options are recommended for best results</small>
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-7">
+          <form>
+
+            <div class="card">
+              <div class="card-block">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control" name="name" id="name" placeholder="Web App Manifest Generator" />
+                  <small class="text-muted">Your web app's name</small>
+                </div>
+                <div class="form-group">
+                  <label for="short-name">Short Name</label>
+                  <input type="text" class="form-control" name="short_name" id="short_name" placeholder="Manifest Generator" />
+                  <small class="text-muted">This will be used in where this is insufficient space to display the full name, such as the homescreen</small>
+                </div>
+
+                <span class="collapse" id="more-name">
+                  <div class="form-group">
+                    <label for="lang">Language</label>
+                    <input type="text" class="form-control" name="lang" id="lang" placeholder="en" value="en"/>
+                    <small class="text-muted">The primary language for the name and short name properties. For example, en or en-CA</small>
+                  </div>
+                </span>
+                <a class="btn btn-link btn-sm btn-collapse" data-toggle="collapse" data-target="#more-name">More...</a>
+              </div>
+            </div>
+
+
+            <div class="card">
+              <div class="card-block">
+                <div class="form-group">
+                  <label for="start_url">Start URL</label>
+                  <input type="text" class="form-control" name="start_url" id="start_url" placeholder="/" value="/" />
+                  <small class="text-muted">Your homescreen shortcut will load this URL</small>
+                </div>
+                <span class="collapse" id="more-url">
+                  <div class="form-group">
+                    <label for="scope">Scope</label>
+                    <input type="text" class="form-control" name="scope" id="scope" placeholder="/" />
+                    <small class="text-muted">The scope of your domain that this manifest applies to</small>
+                  </div>
+                </span>
+                <a class="btn btn-link btn-sm btn-collapse" data-toggle="collapse" data-target="#more-url">More...</a>
+              </div>
+            </div>
+
+
+            <div class="card">
+              <div class="card-block">
+                <div class="form-group">
+                  <label for="display">Display</label>
+                  <div class="radio"><label>
+                    <input type="radio" name="display" value="standalone" checked />
+                    Standalone
+                    <div class="text-muted">An app-like experience, no browser UI, only system UI</div>
+                  </label></div>
+                  <div class="radio"><label>
+                    <input type="radio" name="display" value="fullscreen" />
+                    Fullscreen
+                    <div class="text-muted">No browser or system UI shown</div>
+                  </label></div>
+                  <div class="radio"><label>
+                    <input type="radio" name="display" value="minimal-ui" />
+                    Minimal UI
+                  </label></div>
+                  <div class="radio"><label>
+                    <input type="radio" name="display" value="Browser" />
+                    Browser
+                  </label></div>
+                </div>
+
+                <span class="collapse" id="more-display">
+                  <div class="form-group">
+                    <label for="orientation">Orientation</label>
+                    <select class="form-control c-select" name="orientation" id="orientation">
+                      <option value="">Orientation</option>
+                      <option value="any">Any</option>
+                      <option value="Natural">Natural</option>
+                      <option value="landscape">Landscape</option>
+                      <option value="landscape-primary">Landscape (Primary)</option>
+                      <option value="landscape-secondary">Landscape (Secondary)</option>
+                      <option value="portrait">Portrait</option>
+                      <option value="portrait-primary">Portrait (Primary)</option>
+                      <option value="portrait-secondary">Portrait (Secondary)</option>
+                    </select>
+                  </div>
+                </span>
+                <a class="btn btn-link btn-sm btn-collapse" data-toggle="collapse" data-target="#more-display">More...</a>
+              </div>
+            </div>
+
+
+            <div class="card">
+              <div class="card-block">
+                <div class="form-group">
+                  <label for="theme_color">Theme Color</label>
+                  <input type="text" class="form-control" name="theme_color" id="theme_color" placeholder="#0275d8" />
+                  <small class="text-muted">Color to use in the browser and system UI, to help make your app immersive</small>
+                </div>
+
+                <label>Icons</label>
+                <table class="table table-sm" id="icons">
+                  <thead>
+                    <tr>
+                      <th>URL</th>
+                      <th>Sizes</th>
+                      <th>Type</th>
+                      <th>Density</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="text" class="form-control form-control-sm" name="icons[0][src]" placeholder="/lowres.webp" /></td>
+                      <td><input type="text" class="form-control form-control-sm" name="icons[0][sizes]" placeholder="48x48" /></td>
+                      <td><input type="text" class="form-control form-control-sm" name="icons[0][type]" placeholder="image/webp" /></td>
+                      <td><input type="text" class="form-control form-control-sm" name="icons[0][density]" placeholder="1" /></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3"><a class="btn btn-link btn-sm" id="add_icons">Add another...</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <span class="collapse" id="more-theme">
+                  <label>Splash screens</label>
+                  <table class="table table-sm" id="splash_screens">
+                    <thead>
+                      <tr>
+                        <th>URL</th>
+                        <th>Sizes</th>
+                        <th>Type</th>
+                        <th>Density</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><input type="text" class="form-control form-control-sm" name="splash_screens[0][src]" placeholder="/splash/lowres.webp" /></td>
+                        <td><input type="text" class="form-control form-control-sm" name="splash_screens[0][sizes]" placeholder="320x240" /></td>
+                        <td><input type="text" class="form-control form-control-sm" name="splash_screens[0][type]" placeholder="image/webp" /></td>
+                        <td><input type="text" class="form-control form-control-sm" name="splash_screens[0][density]" placeholder="1" /></td>
+                      </tr>
+                      <tr>
+                        <td colspan="3"><a class="btn btn-link btn-sm" id="add_splash_screens">Add another...</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </span>
+                <a class="btn btn-link btn-sm btn-collapse" data-toggle="collapse" data-target="#more-theme">More...</a>
+              </div>
+            </div>
+
+        </form>
+      </div>
+      <div class="col-md-5">
+        <div class="card output">
+          <div class="card-block">
+            <a class="btn-copy" id="copy_manifest">Copy</a>
+            <strong>manifest.json</strong>
+            <pre id="output_manifest">
+
+
+            </pre>
+          </div>
+        </div>
+        <div class="card output">
+          <div class="card-block">
+            <a class="btn-copy" id="copy_index">Copy</a>
+            <strong>&lt;head&gt;</strong>
+            <pre id="output_index">&lt;link rel="manifest" href="manifest.json"&gt;</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <small>Built by <a href="https://github.com/tomitm">tomitm</a> to make the web great again</small>
+    </footer>
+  </div>
+  <script src="index.js" charset="utf-8"></script>
+</body>
+</html>
