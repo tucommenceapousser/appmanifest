@@ -23,7 +23,7 @@ elements.theme.addEventListener('change', function(evt) {
 });
 
 Array.prototype.slice.call(elements.toggles).map(function(element) {
-  element.addEventListener('click', toggle)
+  element.addEventListener('click', toggle);
 });
 
 elements.addIcon.addEventListener('click', addIconRow);
@@ -104,7 +104,7 @@ function generateHead(form) {
   var name = form.short_name || form.name;
   if (name) {
     meta.push('<meta name="application-name" content="' + name + '">');
-    meta.push('<meta name="apple-mobile-web-app-title" content="' + name + '">');;
+    meta.push('<meta name="apple-mobile-web-app-title" content="' + name + '">');
   }
 
   if (form.theme_color) {
@@ -116,10 +116,10 @@ function generateHead(form) {
   if (form.icons) {
     form.icons.forEach(function(icon) {
       var props = [];
-      if (icon.type)    props.push('type="' + icon.type + '"')
-      if (icon.sizes)   props.push('sizes="' + icon.sizes + '"')
-      if (icon.density) props.push('density="' + icon.density + '"')
-      if (icon.src)     props.push('href="' + icon.src + '"')
+      if (icon.type)    props.push('type="' + icon.type + '"');
+      if (icon.sizes)   props.push('sizes="' + icon.sizes + '"');
+      if (icon.density) props.push('density="' + icon.density + '"');
+      if (icon.src)     props.push('href="' + icon.src + '"');
 
       meta.push('<link rel="icon" ' + props.join(' ') + '>');
       meta.push('<link rel="apple-touch-icon" ' + props.join(' ') + '>');
@@ -147,7 +147,7 @@ function generateHead(form) {
 }
 
 function updateOutput() {
-  var form = getFormData()
+  var form = getFormData();
   var manifest = JSON.stringify(form, null, '  '); // pretty-printed, 2-spaces
   var head = generateHead(form);
 
