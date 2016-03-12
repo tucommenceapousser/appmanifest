@@ -42,9 +42,9 @@ function addIconRow() {
   var index = elements.iconTable.children.length - 1;
   var tr = document.createElement('tr');
   tr.innerHTML = [
-    '<td><input type="text" class="form-control form-control-sm" name="icons['+index+'][src]" placeholder="lowres.webp" /></td>',
-    '<td><input type="text" class="form-control form-control-sm" name="icons['+index+'][sizes]" placeholder="48x48" /></td>',
-    '<td><input type="text" class="form-control form-control-sm" name="icons['+index+'][type]" placeholder="image/webp" /></td>',
+    '<td><input type="text" class="form-control form-control-sm" name="icons['+index+'][src]" placeholder="homescreen.png" /></td>',
+    '<td><input type="text" class="form-control form-control-sm" name="icons['+index+'][sizes]" placeholder="192x192" /></td>',
+    '<td><input type="text" class="form-control form-control-sm" name="icons['+index+'][type]" placeholder="image/png" /></td>',
     '<td><input type="text" class="form-control form-control-sm" name="icons['+index+'][density]" placeholder="1" /></td>'
   ].join('\n');
   elements.iconTable.insertBefore(tr, elements.iconTable.lastElementChild);
@@ -54,8 +54,8 @@ function addSplashRow() {
   var index = elements.splashTable.children.length - 1;
   var tr = document.createElement('tr');
   tr.innerHTML = [
-    '<td><input type="text" class="form-control form-control-sm" name="splash_screens['+index+'][src]" placeholder="/splash/lowres.webp" /></td>',
-    '<td><input type="text" class="form-control form-control-sm" name="splash_screens['+index+'][sizes]" placeholder="320x240" /></td>',
+    '<td><input type="text" class="form-control form-control-sm" name="splash_screens['+index+'][src]" placeholder="splash.webp" /></td>',
+    '<td><input type="text" class="form-control form-control-sm" name="splash_screens['+index+'][sizes]" placeholder="1334x750" /></td>',
     '<td><input type="text" class="form-control form-control-sm" name="splash_screens['+index+'][type]" placeholder="image/webp" /></td>',
     '<td><input type="text" class="form-control form-control-sm" name="splash_screens['+index+'][density]" placeholder="1" /></td>'
   ].join('\n');

@@ -25,7 +25,7 @@
         margin-top: 75px;
       }
 
-      .btn-collapse {
+      .btn-collapse text-muted {
         padding: 0.15rem 0.75rem;
         margin-top: -.5rem;
       }
@@ -38,6 +38,21 @@
 
       .navbar {
         box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+      }
+
+      #icons td,
+      #splash_screens td {
+        border-top: none;
+      }
+
+      #icons td:nth-child(0n+3),
+      #splash_screens td:nth-child(3) {
+        max-width: 8rem;
+      }
+
+      #icons td:nth-child(0n+4),
+      #splash_screens td:nth-child(4) {
+        max-width: 4rem;
       }
 
       .output {
@@ -99,7 +114,7 @@
                     <small class="text-muted">The primary language for the name and short name properties. For example, en or en-CA</small>
                   </div>
                 </span>
-                <a class="btn btn-link btn-sm btn-collapse" data-toggle="collapse" data-target="#more-name">More...</a>
+                <a class="btn btn-link btn-sm btn-collapse text-muted" data-toggle="collapse" data-target="#more-name">More...</a>
               </div>
             </div>
 
@@ -118,7 +133,7 @@
                     <small class="text-muted">The scope of your domain that this manifest applies to</small>
                   </div>
                 </span>
-                <a class="btn btn-link btn-sm btn-collapse" data-toggle="collapse" data-target="#more-url">More...</a>
+                <a class="btn btn-link btn-sm btn-collapse text-muted" data-toggle="collapse" data-target="#more-url">More...</a>
               </div>
             </div>
 
@@ -163,7 +178,7 @@
                     </select>
                   </div>
                 </span>
-                <a class="btn btn-link btn-sm btn-collapse" data-toggle="collapse" data-target="#more-display">More...</a>
+                <a class="btn btn-link btn-sm btn-collapse text-muted" data-toggle="collapse" data-target="#more-display">More...</a>
               </div>
             </div>
 
@@ -188,13 +203,13 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td><input type="text" class="form-control form-control-sm" name="icons[0][src]" placeholder="/lowres.webp" /></td>
-                      <td><input type="text" class="form-control form-control-sm" name="icons[0][sizes]" placeholder="48x48" /></td>
-                      <td><input type="text" class="form-control form-control-sm" name="icons[0][type]" placeholder="image/webp" /></td>
+                      <td><input type="text" class="form-control form-control-sm" name="icons[0][src]" placeholder="homescreen.png" /></td>
+                      <td><input type="text" class="form-control form-control-sm" name="icons[0][sizes]" placeholder="192x192" /></td>
+                      <td><input type="text" class="form-control form-control-sm" name="icons[0][type]" placeholder="image/png" /></td>
                       <td><input type="text" class="form-control form-control-sm" name="icons[0][density]" placeholder="1" /></td>
                     </tr>
                     <tr>
-                      <td colspan="3"><a class="btn btn-link btn-sm" id="add_icons">Add another...</a></td>
+                      <td colspan="4"><a class="btn btn-link btn-sm" id="add_icons">Add another...</a></td>
                     </tr>
                   </tbody>
                 </table>
@@ -212,18 +227,18 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td><input type="text" class="form-control form-control-sm" name="splash_screens[0][src]" placeholder="/splash/lowres.webp" /></td>
-                        <td><input type="text" class="form-control form-control-sm" name="splash_screens[0][sizes]" placeholder="320x240" /></td>
+                        <td><input type="text" class="form-control form-control-sm" name="splash_screens[0][src]" placeholder="splash.webp" /></td>
+                        <td><input type="text" class="form-control form-control-sm" name="splash_screens[0][sizes]" placeholder="1334x750" /></td>
                         <td><input type="text" class="form-control form-control-sm" name="splash_screens[0][type]" placeholder="image/webp" /></td>
                         <td><input type="text" class="form-control form-control-sm" name="splash_screens[0][density]" placeholder="1" /></td>
                       </tr>
                       <tr>
-                        <td colspan="3"><a class="btn btn-link btn-sm" id="add_splash_screens">Add another...</a></td>
+                        <td colspan="4"><a class="btn btn-link btn-sm" id="add_splash_screens">Add another...</a></td>
                       </tr>
                     </tbody>
                   </table>
                 </span>
-                <a class="btn btn-link btn-sm btn-collapse" data-toggle="collapse" data-target="#more-theme">More...</a>
+                <a class="btn btn-link btn-sm btn-collapse text-muted" data-toggle="collapse" data-target="#more-theme">More...</a>
               </div>
             </div>
 
