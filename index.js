@@ -11,8 +11,8 @@ var elements = {
   addSplash: document.querySelector('#add_splash_screens'),
   copyManifest: document.querySelector('#copy_manifest'),
   outputManifest: document.querySelector('#output_manifest'),
-  copyIndex: document.querySelector('#copy_index'),
-  outputIndex: document.querySelector('#output_index'),
+  copyHead: document.querySelector('#copy_head'),
+  outputHead: document.querySelector('#output_head'),
   toggles: document.querySelectorAll('[data-toggle="collapse"]')
 };
 
@@ -30,7 +30,7 @@ elements.addIcon.addEventListener('click', addIconRow);
 elements.addSplash.addEventListener('click', addSplashRow);
 
 elements.copyManifest.addEventListener('click', copy.bind(this, elements.outputManifest));
-elements.copyIndex.addEventListener('click', copy.bind(this, elements.outputIndex));
+elements.copyHead.addEventListener('click', copy.bind(this, elements.outputHead));
 
 function toggle() {
   document.querySelector(this.dataset.target).classList.toggle('in');
@@ -93,17 +93,72 @@ function getFormData() {
     }, {});
 }
 
+function generateHead(form) {
+  var meta = [
+    '<link rel="manifest" href="manifest.json">',
+    '',
+    '<meta name="mobile-web-app-capable" content="yes">',
+    '<meta name="apple-mobile-web-app-capable" content="yes">'
+  ];
+
+  var name = form.short_name || form.name;
+  if (name) {
+    meta.push('<meta name="application-name" content="' + name + '">');
+    meta.push('<meta name="apple-mobile-web-app-title" content="' + name + '">');;
+  }
+
+  if (form.theme_color) {
+    meta.push('<meta name="theme-color" content="' + form.theme_color + '">');
+    meta.push('<meta name="msapplication-navbutton-color" content="' + form.theme_color + '">');
+    meta.push('<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">');
+  }
+
+  if (form.icons) {
+    form.icons.forEach(function(icon) {
+      var props = [];
+      if (icon.type)    props.push('type="' + icon.type + '"')
+      if (icon.sizes)   props.push('sizes="' + icon.sizes + '"')
+      if (icon.density) props.push('density="' + icon.density + '"')
+      if (icon.src)     props.push('href="' + icon.src + '"')
+
+      meta.push('<link rel="icon" ' + props.join(' ') + '>');
+      meta.push('<link rel="apple-touch-icon" ' + props.join(' ') + '>');
+    });
+  }
+
+  if (form.splash_screens) {
+    form.splash_screens.forEach(function(splash) {
+      var props = [];
+      if (splash.type)    props.push('type="' + splash.type + '"');
+      if (splash.sizes)   props.push('sizes="' + splash.sizes + '"');
+      if (splash.density) props.push('density="' + splash.density + '"');
+      if (splash.src)     props.push('href="' + splash.src + '"');
+
+      meta.push('<link rel="apple-touch-startup-image" ' + props.join(' ') + '>');
+    });
+  }
+
+  if (form.start_url) {
+    meta.push('<meta name="msapplication-starturl" content="'+form.start_url+'">');
+  }
+
+  meta.push('<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">');
+  return meta.join('\n');
+}
+
 function updateOutput() {
   var form = getFormData()
-  var json = JSON.stringify(form, null, '  '); // pretty-printed, 2-spaces
+  var manifest = JSON.stringify(form, null, '  '); // pretty-printed, 2-spaces
+  var head = generateHead(form);
 
-  elements.outputManifest.innerText = json;
+  elements.outputManifest.innerText = manifest;
+  elements.outputHead.innerText = head;
 }
 
 function copy(node) {
-  window.getSelection().removeAllRanges();
   var range = document.createRange();
   range.selectNodeContents(node);
+  window.getSelection().removeAllRanges(); // ensure no current selection, otherwise copy may fail
   window.getSelection().addRange(range);
 
   try {
