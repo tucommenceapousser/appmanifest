@@ -101,6 +101,7 @@ function updateOutput() {
 }
 
 function copy(node) {
+  window.getSelection().removeAllRanges();
   var range = document.createRange();
   range.selectNodeContents(node);
   window.getSelection().addRange(range);
