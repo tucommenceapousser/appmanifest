@@ -63,7 +63,7 @@ function addSplashRow() {
 }
 
 function getFormData() {
-  return [...elements.form.elements]
+  return Array.prototype.slice.call(elements.form.elements)
     .reduce(function(form, element) {
       if (!element.value) { // skip empty values
         return form;
