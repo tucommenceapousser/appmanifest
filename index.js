@@ -1,5 +1,10 @@
 (function(){
 
+// redirect gh-pages http -> https, to allow sw to work
+if (window.location.host === 'tomitm.github.io' && window.location.protocol !== 'https:') {
+  window.location.protocol = 'https:';
+}
+
 var elements = {
   form: document.querySelector('form'),
   theme: document.querySelector('#theme_color'),
@@ -165,10 +170,26 @@ function copy(node) {
   try {
     document.execCommand('copy');
   }
-  catch (err) {}
+  catch (err) {
+    showMessage('<i class="fa fa-warning"></i> Couldn\'t copy to your clipboard');
+  }
   finally {
+    showMessage('<i class="fa fa-clipboard"></i> Copied to clipboard');
     window.getSelection().removeAllRanges();
   }
+}
+
+function showMessage(message) {
+  var element = document.createElement('div');
+  element.className = 'message active';
+  element.innerHTML = message;
+  document.body.appendChild(element);
+  setTimeout(function() {
+    element.classList.remove('active');
+    setTimeout(function() { // wait for css animation before removing
+      document.body.removeChild(element);
+    }, 250);
+  }, 2750); // 250ms for active animation + 2s to message display
 }
 
 function reset() {
@@ -193,4 +214,22 @@ var rand = Math.floor(Math.random() * footers.length);
 elements.footer.innerHTML += footers[rand];
 
 reset()
+
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(function(registration) {
+    // only show message on worker installed event
+    registration.onupdatefound = function() {
+      var worker = registration.installing;
+      worker.onstatechange = function() {
+        if (worker.state === "installed") {
+          showMessage('<i class="fa fa-download"></i> Caching completed. This app works offline!');
+        }
+      };
+    };
+  }).catch(function(err) {
+    console.log('sw failure', err);
+  });
+}
+
 })();
