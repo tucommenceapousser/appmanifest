@@ -19,6 +19,7 @@ var elements = {
   copyHead: document.querySelector('#copy_head'),
   outputHead: document.querySelector('#output_head'),
   footer: document.querySelector('footer small'),
+  messages: document.querySelector('#messages'),
   toggles: document.querySelectorAll('[data-toggle="collapse"]')
 };
 
@@ -169,12 +170,10 @@ function copy(node) {
 
   try {
     document.execCommand('copy');
-  }
-  catch (err) {
-    showMessage('<i class="fa fa-warning"></i> Couldn\'t copy to your clipboard');
-  }
-  finally {
     showMessage('<i class="fa fa-clipboard"></i> Copied to clipboard');
+  } catch (err) {
+    showMessage('<i class="fa fa-warning"></i> Couldn\'t copy to your clipboard');
+  } finally {
     window.getSelection().removeAllRanges();
   }
 }
@@ -183,13 +182,13 @@ function showMessage(message) {
   var element = document.createElement('div');
   element.className = 'message active';
   element.innerHTML = message;
-  document.body.appendChild(element);
+  elements.messages.appendChild(element);
   setTimeout(function() {
     element.classList.remove('active');
     setTimeout(function() { // wait for css animation before removing
-      document.body.removeChild(element);
+      elements.messages.removeChild(element);
     }, 250);
-  }, 2750); // 250ms for active animation + 2s to message display
+  }, 2750); // 250ms for active animation + 2.5s to message display
 }
 
 function reset() {

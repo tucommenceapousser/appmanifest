@@ -68,12 +68,16 @@
         margin-bottom: .25em;
       }
 
-      .message {
+      #messages {
         position: fixed;
         left: 1rem;
         bottom: 1.5rem;
         max-width: 90%;
+      }
+
+      #messages .message {
         padding: .5rem 1rem;
+        margin-top: .5rem;
         color: #eceeef;
         background-color: rgba(55, 58, 60, .9);
         box-shadow: 0 2px 5px rgba(0,0,0,0.26);
@@ -82,7 +86,11 @@
         transition: opacity 0.25s ease-in-out;
       }
 
-      .message.active {
+      #messages .message i {
+        margin-right: .5rem;
+      }
+
+      #messages .message.active {
         will-change: opacity;
         opacity: 1;
         transition: opacity 0.25s ease-in-out;
@@ -306,6 +314,7 @@
       <small>Built by <a href="https://github.com/tomitm" target="_blank">tomitm</a></small>
     </footer>
   </div>
+  <div id="messages"></div>
   <script src="index.js" charset="utf-8"></script>
 </body>
 </html>
