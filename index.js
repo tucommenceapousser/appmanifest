@@ -13,6 +13,7 @@ var elements = {
   outputManifest: document.querySelector('#output_manifest'),
   copyHead: document.querySelector('#copy_head'),
   outputHead: document.querySelector('#output_head'),
+  footer: document.querySelector('footer small'),
   toggles: document.querySelectorAll('[data-toggle="collapse"]')
 };
 
@@ -93,6 +94,16 @@ function getFormData() {
     }, {});
 }
 
+function getImageAttrs(image) {
+  var attrs = [];
+  if (image.type)    attrs.push('type="' + image.type + '"');
+  if (image.sizes)   attrs.push('sizes="' + image.sizes + '"');
+  if (image.density) attrs.push('density="' + image.density + '"');
+  if (image.src)     attrs.push('href="' + image.src + '"');
+
+  return attrs.join(' ');
+}
+
 function generateHead(form) {
   var meta = [
     '<link rel="manifest" href="manifest.json">',
@@ -115,26 +126,16 @@ function generateHead(form) {
 
   if (form.icons) {
     form.icons.forEach(function(icon) {
-      var props = [];
-      if (icon.type)    props.push('type="' + icon.type + '"');
-      if (icon.sizes)   props.push('sizes="' + icon.sizes + '"');
-      if (icon.density) props.push('density="' + icon.density + '"');
-      if (icon.src)     props.push('href="' + icon.src + '"');
-
-      meta.push('<link rel="icon" ' + props.join(' ') + '>');
-      meta.push('<link rel="apple-touch-icon" ' + props.join(' ') + '>');
+      var attrs = getImageAttrs(icon);
+      meta.push('<link rel="icon" ' + attrs + '>');
+      meta.push('<link rel="apple-touch-icon" ' + attrs + '>');
     });
   }
 
   if (form.splash_screens) {
     form.splash_screens.forEach(function(splash) {
-      var props = [];
-      if (splash.type)    props.push('type="' + splash.type + '"');
-      if (splash.sizes)   props.push('sizes="' + splash.sizes + '"');
-      if (splash.density) props.push('density="' + splash.density + '"');
-      if (splash.src)     props.push('href="' + splash.src + '"');
-
-      meta.push('<link rel="apple-touch-startup-image" ' + props.join(' ') + '>');
+      var attrs = getImageAttrs(icon);
+      meta.push('<link rel="apple-touch-startup-image" ' + attrs + '>');
     });
   }
 
@@ -179,6 +180,17 @@ function reset() {
 
   updateOutput();
 }
+
+var footers = [
+  '',
+  ' <i class="fa fa-rocket"></i>',
+  ' to make the web great again',
+  ' who wants more web apps on his homescreen',
+  ' who is tired of seeing browser UI',
+  ' because it\'s ' + new Date().getFullYear()
+];
+var rand = Math.floor(Math.random() * footers.length);
+elements.footer.innerHTML += footers[rand];
 
 reset()
 })();

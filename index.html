@@ -60,6 +60,14 @@
         color: #999;
       }
 
+      #notes ul {
+        padding-left: 1.5rem;
+      }
+
+      #notes li {
+        margin-bottom: .25em;
+      }
+
       .footer {
         border-top: 1px solid silver;
         padding: 30px 10px;
@@ -73,9 +81,9 @@
       <a class="navbar-brand hidden-xs-down">Web App Manifest Generator</a>
       <a class="navbar-brand hidden-sm-up">Manifest Generator</a>
       <ul class="nav navbar-nav pull-xs-right">
-        <li class="nav-item"><a class="nav-link hidden-xs-down" href="https://developer.mozilla.org/en-US/docs/Web/Manifest">MDN</a></li>
-        <li class="nav-item"><a class="nav-link hidden-xs-down" href="https://www.w3.org/TR/appmanifest/">Spec</a></li>
-        <li class="nav-item"><a class="nav-link" href="https://github.com/tomitm/appmanifest"><i class="fa fa-github fa-fw fa-lg"></i></a></li>
+        <li class="nav-item"><a class="nav-link hidden-xs-down" href="https://developer.mozilla.org/en-US/docs/Web/Manifest" target="_blank">MDN</a></li>
+        <li class="nav-item"><a class="nav-link hidden-xs-down" href="https://www.w3.org/TR/appmanifest/" target="_blank">Spec</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://github.com/tomitm/appmanifest" target="_blank"><i class="fa fa-github fa-fw fa-lg"></i></a></li>
       </ul>
     </nav>
     <div class="container">
@@ -83,9 +91,9 @@
         <div class="col-xs-12">
           <p>
             <i class="fa fa-magic"></i>
-            Web App Manifests are one of the key pieces to making your web app look and feel like a native app. <a href="https://developers.google.com/web/updates/2014/11/Support-for-installable-web-apps-with-webapp-manifest-in-chrome-38-for-Android?hl=en">Learn more</a>
+            Web App Manifests are one of the key pieces to making your web app look and feel like a native app. <a href="http://html5doctor.com/web-manifest-specification/" target="_blank">Learn more</a>
             <br />
-            <small>Everything is optional, although most options are recommended for best results</small>
+            <small>While everything is optional, once certain <a href="https://developers.google.com/web/updates/2015/03/increasing-engagement-with-app-install-banners-in-chrome-for-android" target="_blank">criteria</a> is met, some browsers will automatically display an install banner for your app</small>
           </p>
         </div>
       </div>
@@ -166,7 +174,7 @@
                   <div class="form-group">
                     <label for="orientation">Orientation</label>
                     <select class="form-control c-select" name="orientation" id="orientation">
-                      <option value="">Orientation</option>
+                      <option value="">Select Orientation</option>
                       <option value="any">Any</option>
                       <option value="Natural">Natural</option>
                       <option value="landscape">Landscape</option>
@@ -249,10 +257,7 @@
           <div class="card-block">
             <a class="btn-copy" id="copy_manifest">Copy</a>
             <strong>manifest.json</strong>
-            <pre id="output_manifest">
-
-
-            </pre>
+            <pre id="output_manifest"></pre>
           </div>
         </div>
         <div class="card output">
@@ -262,10 +267,23 @@
             <pre id="output_head"></pre>
           </div>
         </div>
+        <div class="card">
+          <div class="card-block" id="notes">
+            <h5 class="card-title">Helpful notes</h5>
+            <ul>
+              <li>Browsers will automatically display an install banner for your web app when it meets certain <a href="https://developers.google.com/web/updates/2015/03/increasing-engagement-with-app-install-banners-in-chrome-for-android" target="_blank">criteria</a></li>
+              <li>You can append a parameter to your start URL to detect when your app is launched from homescreen, or you can use the <code><a href="https://developers.google.com/web/updates/2015/10/display-mode" target="_blank">display-mode</a></code> CSS media query</li>
+              <li>For games, you can set fullscreen display and landscape orientation</li>
+              <li>If your app is under a subdirectory (such as this one), make sure you set the Start URL and Scope to that directory, otherwise launching will default to <code>/</code></li>
+              <li>Not all browsers implement <code>manifest.json</code> yet, however the <code>&lt;meta&gt;</code> tags will help bridge that gap</li>
+              <li>Make sure to add a <a href="https://www.smashingmagazine.com/2016/02/making-a-service-worker/" target="_blank">Service Worker</a> so that your app works offline, and even send notifications</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
     <footer class="footer">
-      <small>Built by <a href="https://github.com/tomitm">tomitm</a> to make the web great again</small>
+      <small>Built by <a href="https://github.com/tomitm" target="_blank">tomitm</a></small>
     </footer>
   </div>
   <script src="index.js" charset="utf-8"></script>
