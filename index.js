@@ -1,5 +1,10 @@
 (function(){
 
+// redirect gh-pages http -> https, to allow sw to work
+if (window.location.host === 'tomitm.github.io' && window.location.protocol !== 'https:') {
+  window.location.protocol = 'https:';
+}
+
 var elements = {
   form: document.querySelector('form'),
   theme: document.querySelector('#theme_color'),
