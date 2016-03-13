@@ -68,6 +68,25 @@
         margin-bottom: .25em;
       }
 
+      .message {
+        position: fixed;
+        left: 1rem;
+        bottom: 1.5rem;
+        padding: .5rem 1rem;
+        color: #eceeef;
+        background-color: rgba(55, 58, 60, .9);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+        will-change: opacity;
+        opacity: 0;
+        transition: opacity 0.25s ease-in-out;
+      }
+
+      .message.active {
+        will-change: opacity;
+        opacity: 1;
+        transition: opacity 0.25s ease-in-out;
+      }
+
       .footer {
         border-top: 1px solid silver;
         padding: 30px 10px;
