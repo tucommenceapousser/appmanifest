@@ -7,7 +7,6 @@ if (window.location.host === 'tomitm.github.io' && window.location.protocol !== 
 
 var elements = {
   form: document.querySelector('form'),
-  theme: document.querySelector('#theme_color'),
   lang: document.querySelector('#lang'),
   output: document.querySelector('#output pre'),
   iconTable: document.querySelector('#icons tbody'),
@@ -20,13 +19,14 @@ var elements = {
   outputHead: document.querySelector('#output_head'),
   footer: document.querySelector('footer small'),
   messages: document.querySelector('#messages'),
+  colors: document.querySelectorAll('.form-control-color'),
   toggles: document.querySelectorAll('[data-toggle="collapse"]')
 };
 
 elements.form.addEventListener('change', updateOutput);
 
-elements.theme.addEventListener('change', function(evt) {
-  elements.theme.style['border-color'] = evt.target.value;
+Array.prototype.slice.call(elements.colors).map(function(element) {
+  element.addEventListener('change', setBorderColor);
 });
 
 Array.prototype.slice.call(elements.toggles).map(function(element) {
@@ -38,6 +38,10 @@ elements.addSplash.addEventListener('click', addSplashRow);
 
 elements.copyManifest.addEventListener('click', copy.bind(this, elements.outputManifest));
 elements.copyHead.addEventListener('click', copy.bind(this, elements.outputHead));
+
+function setBorderColor() {
+  this.style['border-color'] = this.value;
+}
 
 function toggle() {
   document.querySelector(this.dataset.target).classList.toggle('in');

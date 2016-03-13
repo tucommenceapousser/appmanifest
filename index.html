@@ -223,7 +223,7 @@
               <div class="card-block">
                 <div class="form-group">
                   <label for="theme_color">Theme Color</label>
-                  <input type="text" class="form-control" name="theme_color" id="theme_color" placeholder="#0275d8" />
+                  <input type="text" class="form-control form-control-color" name="theme_color" id="theme_color" placeholder="#0275d8" />
                   <small class="text-muted">Color used in the browser and system UI, to help make your app immersive</small>
                 </div>
 
@@ -273,6 +273,13 @@
                       </tr>
                     </tbody>
                   </table>
+
+                  <div class="form-group">
+                    <label for="theme_color">Background Color</label>
+                    <input type="text" class="form-control form-control-color" name="background_color" id="background_color" placeholder="#fff" />
+                    <small class="text-muted">This is typically your <code>&lt;body&gt;</code> background color, used to set the background color until the stylesheets for your app are loaded.</small>
+                  </div>
+
                 </span>
                 <a class="btn btn-link btn-sm btn-collapse text-muted" data-toggle="collapse" data-target="#more-theme">More...</a>
               </div>
