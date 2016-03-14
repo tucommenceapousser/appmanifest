@@ -1,7 +1,8 @@
 var npm = {
   root: 'https://npmcdn.com',
   bootstrap: 'https://npmcdn.com/bootstrap@4.0.0-alpha.2',
-  fontAwesome: 'https://npmcdn.com/font-awesome@4.5.0'
+  fontAwesome: 'https://npmcdn.com/font-awesome@4.5.0',
+  raven: 'https://npmcdn.com/raven-js@2.2.0'
 };
 
 var URLS = {
@@ -21,6 +22,7 @@ var URLS = {
     `${npm.bootstrap}/dist/css/bootstrap.min.css`,
     `${npm.fontAwesome}/css/font-awesome.min.css`,
     `${npm.fontAwesome}/fonts/fontawesome-webfont.woff2` // browsers that support sw support woff2
+    `${npm.raven}/dist/raven.min.js`
   ]
 }
 

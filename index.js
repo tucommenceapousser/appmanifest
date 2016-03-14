@@ -5,6 +5,9 @@ if (window.location.host === 'tomitm.github.io' && window.location.protocol !== 
   window.location.protocol = 'https:';
 }
 
+// thanks @mitchhentges for hosting
+Raven.config('https://1245a5c1dc094525aed3bc905181cc58@sentry.fuzzlesoft.ca/3').install()
+
 var elements = {
   form: document.querySelector('form'),
   lang: document.querySelector('#lang'),
