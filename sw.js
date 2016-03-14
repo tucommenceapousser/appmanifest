@@ -9,7 +9,13 @@ var URLS = {
     './',
     './index.js',
     './index.html',
-    './manifest.json'
+    './manifest.json',
+    './res/icon_hi_res_512.png',
+    './res/icon_xxxhdpi_192.png',
+    './res/icon_xxhdpi_144.png',
+    './res/icon_xhdpi_96.png',
+    './res/icon_hdpi_72.png',
+    './res/icon_mdpi_48.png'
   ],
   vendor: [
     npm.bootstrap + 'dist/css/bootstrap.min.css',
