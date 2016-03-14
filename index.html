@@ -65,7 +65,11 @@
 
       #icons td:nth-child(0n+4),
       #splash_screens td:nth-child(4) {
-        max-width: 4rem;
+        max-width: 5rem;
+      }
+
+      #related_applications td:nth-child(0n+1) {
+        max-width: 6rem;
       }
 
       .output {
@@ -235,7 +239,7 @@
             <div class="card">
               <div class="card-block">
                 <div class="form-group">
-                  <label for="theme_color">Theme Color</label>
+                  <label for="theme_color">Theme color</label>
                   <input type="text" class="form-control form-control-color" name="theme_color" id="theme_color" placeholder="#0275d8" />
                   <small class="text-muted">Color used in the browser and system UI, to help make your app immersive</small>
                 </div>
@@ -255,7 +259,7 @@
                       <td><input type="text" class="form-control form-control-sm" name="icons[0][src]" placeholder="homescreen.png" /></td>
                       <td><input type="text" class="form-control form-control-sm" name="icons[0][sizes]" placeholder="192x192" /></td>
                       <td><input type="text" class="form-control form-control-sm" name="icons[0][type]" placeholder="image/png" /></td>
-                      <td><input type="text" class="form-control form-control-sm" name="icons[0][density]" placeholder="1" /></td>
+                      <td><input type="number" class="form-control form-control-sm" name="icons[0][density]" placeholder="1" /></td>
                     </tr>
                     <tr>
                       <td colspan="4"><a class="btn btn-link btn-sm" id="add_icons">Add another...</a></td>
@@ -279,7 +283,7 @@
                         <td><input type="text" class="form-control form-control-sm" name="splash_screens[0][src]" placeholder="splash.webp" /></td>
                         <td><input type="text" class="form-control form-control-sm" name="splash_screens[0][sizes]" placeholder="1334x750" /></td>
                         <td><input type="text" class="form-control form-control-sm" name="splash_screens[0][type]" placeholder="image/webp" /></td>
-                        <td><input type="text" class="form-control form-control-sm" name="splash_screens[0][density]" placeholder="1" /></td>
+                        <td><input type="number" class="form-control form-control-sm" name="splash_screens[0][density]" placeholder="1" /></td>
                       </tr>
                       <tr>
                         <td colspan="4"><a class="btn btn-link btn-sm" id="add_splash_screens">Add another...</a></td>
@@ -288,13 +292,47 @@
                   </table>
 
                   <div class="form-group">
-                    <label for="theme_color">Background Color</label>
+                    <label for="theme_color">Background color</label>
                     <input type="text" class="form-control form-control-color" name="background_color" id="background_color" placeholder="#fff" />
                     <small class="text-muted">This is typically your <code>&lt;body&gt;</code> background color, used to set the background color until the stylesheets for your app are loaded.</small>
                   </div>
 
                 </span>
                 <a class="btn btn-link btn-sm btn-collapse text-muted" data-toggle="collapse" data-target="#more-theme">More...</a>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-block">
+                <label>Related applications</label>
+                <table class="table table-sm" id="related_applications">
+                  <thead>
+                    <tr>
+                      <th>Platform</th>
+                      <th>App ID</th>
+                      <th>URL</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="text" class="form-control form-control-sm" name="related_applications[0][platform]" placeholder="play" /></td>
+                      <td><input type="text" class="form-control form-control-sm" name="related_applications[0][id]" placeholder="com.example.app" /></td>
+                      <td><input type="text" class="form-control form-control-sm" name="related_applications[0][url]" placeholder="https://play.google.com/store/apps/details?id=com.example.app1" /></td>
+                    </tr>
+                    <tr>
+                      <td colspan="4"><a class="btn btn-link btn-sm" id="add_related_applications">Add another...</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="form-group">
+                  <label>
+                    <input type="checkbox" name="prefer_related_applications" id="prefer_related_applications" />
+                    Prefer related applications
+                    <br />
+                    <small class="text-muted">Whether to show the native app banner before the web app install banner</small>
+                  </label>
+                </div>
               </div>
             </div>
 
@@ -324,6 +362,7 @@
               <li>For games, you can set fullscreen display and landscape orientation</li>
               <li>If your app is under a subdirectory (such as this one), make sure you set <code>start_url</code> and <code>scope</code> to that directory, otherwise launching will default to <code>/</code></li>
               <li>Not all browsers implement the manifest yet, however the <code>&lt;meta&gt;</code> tags will help bridge that gap</li>
+              <li>You can even link to your native app as a related app and get the benefit of the install banner</li>
               <li>Make sure to add a <a href="https://www.smashingmagazine.com/2016/02/making-a-service-worker/" target="_blank">Service Worker</a> so that your app can work offline and even send notifications</li>
             </ul>
           </div>

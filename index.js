@@ -13,6 +13,8 @@ var elements = {
   addIcon: document.querySelector('#add_icons'),
   splashTable: document.querySelector('#splash_screens tbody'),
   addSplash: document.querySelector('#add_splash_screens'),
+  relatedTable: document.querySelector('#related_applications tbody'),
+  addRelated: document.querySelector('#add_related_applications'),
   copyManifest: document.querySelector('#copy_manifest'),
   outputManifest: document.querySelector('#output_manifest'),
   copyHead: document.querySelector('#copy_head'),
@@ -35,6 +37,7 @@ Array.prototype.slice.call(elements.toggles).map(function(element) {
 
 elements.addIcon.addEventListener('click', addIconRow);
 elements.addSplash.addEventListener('click', addSplashRow);
+elements.addRelated.addEventListener('click', addRelatedRow);
 
 elements.copyManifest.addEventListener('click', copy.bind(this, elements.outputManifest));
 elements.copyHead.addEventListener('click', copy.bind(this, elements.outputHead));
@@ -73,20 +76,43 @@ function addSplashRow() {
   elements.splashTable.insertBefore(tr, elements.splashTable.lastElementChild);
 }
 
+function addRelatedRow() {
+  var index = elements.relatedTable.children.length - 1;
+  var tr = document.createElement('tr');
+  tr.innerHTML = [
+    '<td><input type="text" class="form-control form-control-sm" name="related_applications['+index+'][platform]" placeholder="play" /></td>',
+    '<td><input type="text" class="form-control form-control-sm" name="related_applications['+index+'][id]" placeholder="com.example.app" /></td>',
+    '<td><input type="text" class="form-control form-control-sm" name="related_applications['+index+'][url]" placeholder="https://play.google.com/store/apps/details?id=com.example.app1" /></td>',
+  ].join('\n');
+  elements.relatedTable.insertBefore(tr, elements.relatedTable.lastElementChild);
+}
+
 function getFormData() {
   return Array.prototype.slice.call(elements.form.elements)
     .reduce(function(form, element) {
-      if (!element.value) { // skip empty values
+      var value = element.value;
+      if (!value) { // skip empty values
         return form;
+      }
+
+      if (element.type === 'number') { // numbers shouldn't be strings
+        value = parseFloat(value) || value;
       }
 
       if (element.type === 'radio' && !element.checked) { // skip unchecked radios
         return form;
       }
 
+      if (element.type === 'checkbox') {
+        value = element.checked;
+        if (!value) { // skip unchecked values (default for related is false anyway)
+          return form;
+        }
+      }
+
       var array = element.name.split('['); // icon and splash are object arrays: icon[0][src]
       if (array.length === 1) { // not icon/splash, simple assignment
-        form[element.name] = element.value;
+        form[element.name] = value;
         return form;
       }
 
@@ -98,7 +124,7 @@ function getFormData() {
       if (!form[prop])        form[prop] = [];
       if (!form[prop][index]) form[prop][index] = {};
 
-      form[prop][index][name] = element.value;
+      form[prop][index][name] = value;
       form[prop] = form[prop].filter(function(prop) { return prop !== null; });
       return form;
     }, {});
