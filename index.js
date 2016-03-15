@@ -5,8 +5,15 @@ if (window.location.host === 'tomitm.github.io' && window.location.protocol !== 
   window.location.protocol = 'https:';
 }
 
+var appPathExp = new RegExp('^https?:\/\/tomitm.github.io\/appmanifest\/.*');
+var npmPathExp = new RegExp('^https?:\/\/npmcdn.com\/appmanifest\/.*');
+var ravenConfig = {
+  whitelistUrls: [appPathExp, npmPathExp],
+  includeUrls: [appPathExp]
+}
+
 // thanks @mitchhentges for hosting
-Raven.config('https://1245a5c1dc094525aed3bc905181cc58@sentry.fuzzlesoft.ca/3').install()
+Raven.config('https://1245a5c1dc094525aed3bc905181cc58@sentry.fuzzlesoft.ca/3', ravenConfig).install()
 
 var elements = {
   form: document.querySelector('form'),
@@ -245,7 +252,7 @@ var footers = [
 var rand = Math.floor(Math.random() * footers.length);
 elements.footer.innerHTML += footers[rand];
 
-reset()
+reset();
 
 
 if ('serviceWorker' in navigator) {
@@ -260,6 +267,7 @@ if ('serviceWorker' in navigator) {
       };
     };
   }).catch(function(err) {
+    Raven.captureException(err);
     console.log('sw failure', err);
   });
 }
