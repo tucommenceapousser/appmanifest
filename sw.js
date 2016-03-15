@@ -21,7 +21,7 @@ var URLS = {
   vendor: [
     `${npm.bootstrap}/dist/css/bootstrap.min.css`,
     `${npm.fontAwesome}/css/font-awesome.min.css`,
-    `${npm.fontAwesome}/fonts/fontawesome-webfont.woff2` // browsers that support sw support woff2
+    `${npm.fontAwesome}/fonts/fontawesome-webfont.woff2`, // browsers that support sw support woff2
     `${npm.raven}/dist/raven.min.js`
   ]
 }
