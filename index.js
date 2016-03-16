@@ -254,8 +254,8 @@ elements.footer.innerHTML += footers[rand];
 
 reset();
 
-
-if ('serviceWorker' in navigator) {
+var shouldRegister = window.location.protocol === 'https:' || window.location.hostname === 'localhost';
+if ('serviceWorker' in navigator && shouldRegister) {
   navigator.serviceWorker.register('sw.js').then(function(registration) {
     // only show message on worker installed event
     registration.onupdatefound = function() {
