@@ -170,6 +170,16 @@ function generateHead(form) {
     meta.push('<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">');
   }
 
+  if (form.start_url) {
+    meta.push('<meta name="msapplication-starturl" content="'+form.start_url+'">');
+  }
+
+  meta.push('<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">');
+
+  if (form.icons || form.splash_screens) {
+    meta.push('');
+  }
+
   if (form.icons) {
     form.icons.forEach(function(icon) {
       var attrs = getImageAttrs(icon);
@@ -185,11 +195,6 @@ function generateHead(form) {
     });
   }
 
-  if (form.start_url) {
-    meta.push('<meta name="msapplication-starturl" content="'+form.start_url+'">');
-  }
-
-  meta.push('<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">');
   return meta.join('\n');
 }
 
