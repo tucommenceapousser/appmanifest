@@ -180,7 +180,7 @@ function generateHead(form) {
 
   if (form.splash_screens) {
     form.splash_screens.forEach(function(splash) {
-      var attrs = getImageAttrs(icon);
+      var attrs = getImageAttrs(splash);
       meta.push('<link rel="apple-touch-startup-image" ' + attrs + '>');
     });
   }
