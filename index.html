@@ -127,6 +127,10 @@
         margin-top: 15px;
         color: #818a91;
       }
+
+      .footer a i {
+        color: #000;
+      }
     </style>
   </head>
   <body>
@@ -134,9 +138,15 @@
       <a class="navbar-brand hidden-xs-down">Web App Manifest Generator</a>
       <a class="navbar-brand hidden-sm-up">Manifest Generator</a>
       <ul class="nav navbar-nav pull-xs-right">
-        <li class="nav-item hidden-xs-down"><a class="nav-link" href="https://developer.mozilla.org/en-US/docs/Web/Manifest" target="_blank">MDN</a></li>
-        <li class="nav-item hidden-xs-down"><a class="nav-link" href="https://www.w3.org/TR/appmanifest/" target="_blank">Spec</a></li>
-        <li class="nav-item"><a class="nav-link" href="https://github.com/tomitm/appmanifest" target="_blank"><i class="fa fa-github fa-fw fa-lg"></i></a></li>
+        <li class="nav-item hidden-xs-down">
+          <a class="nav-link" href="https://developer.mozilla.org/en-US/docs/Web/Manifest" target="_blank" title="Quick reference on MDN">MDN</a>
+        </li>
+        <li class="nav-item hidden-xs-down">
+          <a class="nav-link" href="https://www.w3.org/TR/appmanifest/" target="_blank" title="Read the W3 specification">Spec</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/tomitm/appmanifest" target="_blank" title="View project on Github"><i class="fa fa-github fa-fw fa-lg"></i></a>
+        </li>
       </ul>
     </nav>
     <div class="container">
@@ -371,6 +381,7 @@
               <li>If your app is under a subdirectory (such as this one), make sure you set <code>start_url</code> and <code>scope</code> to that directory, otherwise launching will default to <code>/</code></li>
               <li>Not all browsers implement the manifest yet, however the <code>&lt;meta&gt;</code> tags will help bridge that gap</li>
               <li>You can even link to your native app as a related app and get the benefit of the install banner</li>
+              <li>To determine if the install prompt was successful, or defer it, use the <code><a href="https://developers.google.com/web/fundamentals/engage-and-retain/app-install-banners/advanced">beforeinstallprompt</a></code> event</li>
               <li>Make sure to add a <a href="https://www.smashingmagazine.com/2016/02/making-a-service-worker/" target="_blank">Service Worker</a> so that your app can work offline and even send notifications</li>
             </ul>
           </div>
@@ -378,6 +389,10 @@
       </div>
     </div>
     <footer class="footer">
+      <div class="pull-xs-right">
+        <a href="https://twitter.com/_tomitm" target="_blank" title="@_tomitm"><i class="fa fa-twitter fa-lg fa-fw"></i></a>
+        <a href="https://github.com/tomitm" target="_blank" title="tomitm"><i class="fa fa-github fa-lg fa-fw"></i></a>
+      </div>
       <small>Built by <a href="https://github.com/tomitm" target="_blank">tomitm</a></small>
     </footer>
   </div>
