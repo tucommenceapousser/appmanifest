@@ -73,13 +73,31 @@ function raceRequest(request, cacheName) {
   })
 }
 
+function cleanupCache() {
+  var validKeys = Object.keys(CACHE_NAMES).map((key) => CACHE_NAMES[key]);
+  return caches.keys().then((localKeys) => Promise.all(
+    localKeys.map((key) => {
+      if (validKeys.indexOf(key) === -1) { // key no longer in our list
+        return caches.delete(key);
+      }
+    })
+  ));
+}
+
 self.addEventListener('install', function(evt) {
   var cachingCompleted = Promise.all([
     cacheAll(CACHE_NAMES.app, URLS.app),
     cacheAll(CACHE_NAMES.vendor, URLS.vendor)
-  ]);
+  ]).then(() => self.skipWaiting())
 
   evt.waitUntil(cachingCompleted);
+});
+
+self.addEventListener('activate', function(evt) {
+  evt.waitUntil(Promise.all([
+    cleanupCache(),
+    self.clients.claim() // claim immediately so the page can be controlled by the sw immediately
+  ]));
 });
 
 self.addEventListener('fetch', function(evt) {

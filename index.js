@@ -265,6 +265,8 @@ if ('serviceWorker' in navigator && shouldRegister) {
     // only show message on worker installed event
     registration.onupdatefound = function() {
       var worker = registration.installing;
+      if (!worker) return;
+
       worker.onstatechange = function() {
         if (worker.state === "installed") {
           showMessage('<i class="fa fa-download"></i> Caching completed. This app works offline!');
