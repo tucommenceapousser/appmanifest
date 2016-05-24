@@ -1,8 +1,12 @@
-var npm = {
-  root: 'https://npmcdn.com',
+var cdn = {
+  npm: 'https://npmcdn.com',
+  max: 'https://maxcdn.bootstrapcdn.com'
+}
+
+var vendor = {
   bootstrap: 'https://npmcdn.com/bootstrap@4.0.0-alpha.2',
-  fontAwesome: 'https://npmcdn.com/font-awesome@4.5.0',
-  raven: 'https://npmcdn.com/raven-js@2.2.0'
+  fontAwesome: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3',
+  raven: 'https://npmcdn.com/raven-js@3.0.4'
 };
 
 var URLS = {
@@ -19,17 +23,21 @@ var URLS = {
     './res/icon_mdpi_48.png'
   ],
   vendor: [
-    `${npm.bootstrap}/dist/css/bootstrap.min.css`,
-    `${npm.fontAwesome}/css/font-awesome.min.css`,
-    `${npm.fontAwesome}/fonts/fontawesome-webfont.woff2`, // browsers that support sw support woff2
-    `${npm.raven}/dist/raven.min.js`
+    `${vendor.bootstrap}/dist/css/bootstrap.min.css`,
+    `${vendor.fontAwesome}/css/font-awesome.min.css`,
+    `${vendor.fontAwesome}/fonts/fontawesome-webfont.woff2`, // browsers that support sw support woff2
+    `${vendor.raven}/dist/raven.min.js`
   ]
 }
 
 var CACHE_NAMES = {
-  app: 'app-cache-v1',
-  vendor: 'vendor-cache-v1'
+  app: 'app-cache-v2',
+  vendor: 'vendor-cache-v2'
 };
+
+function isVendor(url) {
+  return url.startsWith(cdn.npm) || url.startsWith(cdn.max);
+}
 
 function cacheAll(cacheName, urls) {
   return caches.open(cacheName).then((cache) => cache.addAll(urls));
@@ -107,7 +115,7 @@ self.addEventListener('fetch', function(evt) {
   // only handle GET requests
   if (request.method !== 'GET') return;
 
-  if (request.url.startsWith(npm.root)) {
+  if (isVendor(request.url)) {
     // vendor requests: check cache first, fallback to fetch
     response = lookupCache(request)
       .catch(() => fetchThenCache(request, CACHE_NAMES.vendor));
