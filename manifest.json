@@ -1,10 +1,11 @@
 {
   "name": "Web App Manifest Generator",
-  "short_name": "Manifest Generator",
+  "short_name": "App Manifest",
   "lang": "en-US",
   "start_url": "/appmanifest/",
   "scope": "/appmanifest/",
   "display": "standalone",
+  "background_color": "#fff",
   "theme_color": "#0275d8",
   "icons": [
     {

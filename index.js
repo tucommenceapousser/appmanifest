@@ -62,14 +62,22 @@ function toggle() {
   this.innerText = text;
 }
 
+function createInput(label, id, name, placeholder) {
+  return '<td>' +
+            '<label class="sr-only" for="'+id+'">'+label+'</label>' +
+            '<input type="text" class="form-control form-control-sm" '+
+                    'id="'+id+'" name="'+name+'" placeholder="'+placeholder+'" />' +
+          '</td>';
+}
+
 function addIconRow() {
   var index = elements.iconTable.children.length - 1;
   var tr = document.createElement('tr');
   tr.innerHTML = [
-    '<td><input type="text" class="form-control form-control-sm" name="icons['+index+'][src]" placeholder="homescreen.png" /></td>',
-    '<td><input type="text" class="form-control form-control-sm" name="icons['+index+'][sizes]" placeholder="192x192" /></td>',
-    '<td><input type="text" class="form-control form-control-sm" name="icons['+index+'][type]" placeholder="image/png" /></td>',
-    '<td><input type="text" class="form-control form-control-sm" name="icons['+index+'][density]" placeholder="1" /></td>'
+    createInput('URL', 'icons_'+index+'_src', 'icons['+index+'][src]', 'homescreen.png'),
+    createInput('Sizes', 'icons_'+index+'_sizes', 'icons['+index+'][sizes]', '192x192'),
+    createInput('Type', 'icons_'+index+'_type', 'icons['+index+'][type]', 'image/png'),
+    createInput('Density', 'icons_'+index+'_density', 'icons['+index+'][density]', '1')
   ].join('\n');
   elements.iconTable.insertBefore(tr, elements.iconTable.lastElementChild);
 }
@@ -78,10 +86,10 @@ function addSplashRow() {
   var index = elements.splashTable.children.length - 1;
   var tr = document.createElement('tr');
   tr.innerHTML = [
-    '<td><input type="text" class="form-control form-control-sm" name="splash_screens['+index+'][src]" placeholder="splash.webp" /></td>',
-    '<td><input type="text" class="form-control form-control-sm" name="splash_screens['+index+'][sizes]" placeholder="1334x750" /></td>',
-    '<td><input type="text" class="form-control form-control-sm" name="splash_screens['+index+'][type]" placeholder="image/webp" /></td>',
-    '<td><input type="text" class="form-control form-control-sm" name="splash_screens['+index+'][density]" placeholder="1" /></td>'
+    createInput('URL', 'splash_'+index+'_src', 'splash_screens['+index+'][src]', 'splash.webp'),
+    createInput('Sizes', 'splash_'+index+'_sizes', 'splash_screens['+index+'][sizes]', '1334x750'),
+    createInput('Type', 'splash_'+index+'_type', 'splash_screens['+index+'][type]', 'image/webp'),
+    createInput('Density', 'splash_'+index+'_density', 'splash_screens['+index+'][density]', '1')
   ].join('\n');
   elements.splashTable.insertBefore(tr, elements.splashTable.lastElementChild);
 }
@@ -90,9 +98,9 @@ function addRelatedRow() {
   var index = elements.relatedTable.children.length - 1;
   var tr = document.createElement('tr');
   tr.innerHTML = [
-    '<td><input type="text" class="form-control form-control-sm" name="related_applications['+index+'][platform]" placeholder="play" /></td>',
-    '<td><input type="text" class="form-control form-control-sm" name="related_applications['+index+'][id]" placeholder="com.example.app" /></td>',
-    '<td><input type="text" class="form-control form-control-sm" name="related_applications['+index+'][url]" placeholder="https://play.google.com/store/apps/details?id=com.example.app1" /></td>',
+    createInput('Platform', 'related_'+index+'_platform', 'related_applications['+index+'][platform]', 'play'),
+    createInput('ID', 'related_'+index+'_id', 'related_applications['+index+'][id]', 'com.example.app'),
+    createInput('URL', 'related_'+index+'_url', 'related_applications['+index+'][url]', 'https://play.google.com/store/apps/details?id=com.example.app1')
   ].join('\n');
   elements.relatedTable.insertBefore(tr, elements.relatedTable.lastElementChild);
 }
