@@ -13,7 +13,7 @@ var ravenConfig = {
 }
 
 // thanks @mitchhentges for hosting
-Raven.config('https://1245a5c1dc094525aed3bc905181cc58@sentry.fuzzlesoft.ca/3', ravenConfig).install()
+Raven.config('https://de036bea98de4585b546148f6adfc1b6@sentry.fuzzlesoft.ca/3', ravenConfig).install()
 
 var elements = {
   form: document.querySelector('form'),
