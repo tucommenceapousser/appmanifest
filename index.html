@@ -11,16 +11,16 @@
     <link rel="shortcut icon" type="image/png" sizes="512x512" href="res/icon_hi_res_512.png">
     <link rel="icon" type="image/png" sizes="512x512" href="res/icon_hi_res_512.png">
     <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="res/icon_hi_res_512.png">
-    <link rel="icon" type="image/png" sizes="192x192" density="4" href="res/icon_xxxhdpi_192.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="192x192" density="4" href="res/icon_xxxhdpi_192.png">
-    <link rel="icon" type="image/png" sizes="144x144" density="3" href="res/icon_xxhdpi_144.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="144x144" density="3" href="res/icon_xxhdpi_144.png">
-    <link rel="icon" type="image/png" sizes="96x96" density="2" href="res/icon_xhdpi_96.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="96x96" density="2" href="res/icon_xhdpi_96.png">
-    <link rel="icon" type="image/png" sizes="72x72" density="1.5" href="res/icon_hdpi_72.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="72x72" density="1.5" href="res/icon_hdpi_72.png">
-    <link rel="icon" type="image/png" sizes="48x48" density="1" href="res/icon_mdpi_48.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="48x48" density="1" href="res/icon_mdpi_48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="res/icon_xxxhdpi_192.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="192x192" href="res/icon_xxxhdpi_192.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="res/icon_xxhdpi_144.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="144x144" href="res/icon_xxhdpi_144.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="res/icon_xhdpi_96.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="96x96" href="res/icon_xhdpi_96.png">
+    <link rel="icon" type="image/png" sizes="72x72" href="res/icon_hdpi_72.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="72x72" href="res/icon_hdpi_72.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="res/icon_mdpi_48.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="48x48" href="res/icon_mdpi_48.png">
     <meta name="application-name" content="Manifest Generator">
     <meta name="apple-mobile-web-app-title" content="Manifest Generator">
     <meta name="theme-color" content="#0275d8">
@@ -40,8 +40,13 @@
     <link rel="canonical" href="https://tomitm.github.io/appmanifest/" />
     <link rel="stylesheet" href="https://npmcdn.com/bootstrap@4.0.0-alpha.2/dist/css/bootstrap.min.css"
           integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+    <link rel="preload" as="style" onload="this.rel='stylesheet'"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
           integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <noscript>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+          integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    </noscript>
     <style media="screen">
       body {
         margin-top: 75px;
@@ -62,22 +67,15 @@
         box-shadow: 0 2px 5px rgba(0,0,0,0.26);
       }
 
-      #icons td,
-      #splash_screens td {
+      #icons td {
         border-top: none;
       }
 
-      #icons td:nth-child(0n+3),
-      #splash_screens td:nth-child(3) {
+      #icons td:nth-child(0n+3) { /* type */
         max-width: 8rem;
       }
 
-      #icons td:nth-child(0n+4),
-      #splash_screens td:nth-child(4) {
-        max-width: 5rem;
-      }
-
-      #related_applications td:nth-child(0n+1) {
+      #related_applications td:nth-child(0n+1) { /* platform */
         max-width: 6rem;
       }
 
@@ -181,9 +179,14 @@
 
                 <span class="collapse" id="more-name">
                   <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" class="form-control" name="description" id="description" placeholder="A generator to help developers create Web App Manifests" />
+                    <small class="text-muted">The purpose of your web app</small>
+                  </div>
+                  <div class="form-group">
                     <label for="lang">Language</label>
                     <input type="text" class="form-control" name="lang" id="lang" placeholder="en" value="en"/>
-                    <small class="text-muted">The primary language for the name and short name properties. For example, en or en-CA</small>
+                    <small class="text-muted">The primary language for the name, short name and description properties. For example, en or en-CA</small>
                   </div>
                 </span>
                 <a class="btn btn-link btn-sm btn-collapse text-muted" data-toggle="collapse" data-target="#more-name">More...</a>
@@ -270,7 +273,6 @@
                       <th>URL</th>
                       <th>Sizes</th>
                       <th>Type</th>
-                      <th>Density</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -290,11 +292,6 @@
                         <input type="text" class="form-control form-control-sm" id="icons_0_type"
                             name="icons[0][type]" placeholder="image/png" />
                       </td>
-                      <td>
-                        <label class="sr-only" for="icons_0_density">Density</label>
-                        <input type="number" class="form-control form-control-sm" id="icons_0_density"
-                            name="icons[0][density]" placeholder="1" />
-                      </td>
                     </tr>
                     <tr>
                       <td colspan="4"><a class="btn btn-link btn-sm" id="add_icons">Add another...</a></td>
@@ -303,41 +300,6 @@
                 </table>
 
                 <span class="collapse" id="more-theme">
-                  <label>Splash screens</label>
-                  <table class="table table-sm" id="splash_screens">
-                    <thead>
-                      <tr>
-                        <th>URL</th>
-                        <th>Sizes</th>
-                        <th>Type</th>
-                        <th>Density</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <input type="text" class="form-control form-control-sm" id="splash_0_src"
-                                  name="splash_screens[0][src]" placeholder="splash.webp" />
-                        </td>
-                        <td>
-                          <input type="text" class="form-control form-control-sm" id="splash_0_sizes"
-                                  name="splash_screens[0][sizes]" placeholder="1334x750" />
-                        </td>
-                        <td>
-                          <input type="text" class="form-control form-control-sm" id="splash_0_type"
-                                  name="splash_screens[0][type]" placeholder="image/webp" />
-                        </td>
-                        <td>
-                          <input type="number" class="form-control form-control-sm" id="splash_0_density"
-                                  name="splash_screens[0][density]" placeholder="1" />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colspan="4"><a class="btn btn-link btn-sm" id="add_splash_screens">Add another...</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
                   <div class="form-group">
                     <label for="background_color">Background color</label>
                     <input type="text" class="form-control form-control-color" name="background_color" id="background_color" placeholder="#fff" />
@@ -439,8 +401,8 @@
     </footer>
   </div>
   <div id="messages"></div>
-  <script src="https://npmcdn.com/raven-js@3.0.4/dist/raven.min.js"
-          integrity="sha384-m9Mr+o0sqawBzusErFeyOHMFZdItwXDb/WnzT/MxSWWkvCyJrnfxU/UX9QE+DaEp" crossorigin="anonymous"></script>
+  <script src="https://npmcdn.com/raven-js@3.4.1/dist/raven.min.js"
+          integrity="sha384-mFMeuiDmEJB2AVsb4kUXXQMKL2FxM8RD2/Bd7x9Y/9KLMwHZ6tkKnUo5+V8Ne4p8" crossorigin="anonymous"></script>
   <script src="index.js" charset="utf-8"></script>
 </body>
 </html>

@@ -21,8 +21,6 @@ var elements = {
   output: document.querySelector('#output pre'),
   iconTable: document.querySelector('#icons tbody'),
   addIcon: document.querySelector('#add_icons'),
-  splashTable: document.querySelector('#splash_screens tbody'),
-  addSplash: document.querySelector('#add_splash_screens'),
   relatedTable: document.querySelector('#related_applications tbody'),
   addRelated: document.querySelector('#add_related_applications'),
   copyManifest: document.querySelector('#copy_manifest'),
@@ -46,7 +44,6 @@ Array.prototype.slice.call(elements.toggles).map(function(element) {
 });
 
 elements.addIcon.addEventListener('click', addIconRow);
-elements.addSplash.addEventListener('click', addSplashRow);
 elements.addRelated.addEventListener('click', addRelatedRow);
 
 elements.copyManifest.addEventListener('click', copy.bind(this, elements.outputManifest));
@@ -76,22 +73,9 @@ function addIconRow() {
   tr.innerHTML = [
     createInput('URL', 'icons_'+index+'_src', 'icons['+index+'][src]', 'homescreen.png'),
     createInput('Sizes', 'icons_'+index+'_sizes', 'icons['+index+'][sizes]', '192x192'),
-    createInput('Type', 'icons_'+index+'_type', 'icons['+index+'][type]', 'image/png'),
-    createInput('Density', 'icons_'+index+'_density', 'icons['+index+'][density]', '1')
+    createInput('Type', 'icons_'+index+'_type', 'icons['+index+'][type]', 'image/png')
   ].join('\n');
   elements.iconTable.insertBefore(tr, elements.iconTable.lastElementChild);
-}
-
-function addSplashRow() {
-  var index = elements.splashTable.children.length - 1;
-  var tr = document.createElement('tr');
-  tr.innerHTML = [
-    createInput('URL', 'splash_'+index+'_src', 'splash_screens['+index+'][src]', 'splash.webp'),
-    createInput('Sizes', 'splash_'+index+'_sizes', 'splash_screens['+index+'][sizes]', '1334x750'),
-    createInput('Type', 'splash_'+index+'_type', 'splash_screens['+index+'][type]', 'image/webp'),
-    createInput('Density', 'splash_'+index+'_density', 'splash_screens['+index+'][density]', '1')
-  ].join('\n');
-  elements.splashTable.insertBefore(tr, elements.splashTable.lastElementChild);
 }
 
 function addRelatedRow() {
@@ -128,8 +112,8 @@ function getFormData() {
         }
       }
 
-      var array = element.name.split('['); // icon and splash are object arrays: icon[0][src]
-      if (array.length === 1) { // not icon/splash, simple assignment
+      var array = element.name.split('['); // icon is object array: icon[0][src]
+      if (array.length === 1) { // not icon, simple assignment
         form[element.name] = value;
         return form;
       }
@@ -152,7 +136,6 @@ function getImageAttrs(image) {
   var attrs = [];
   if (image.type)    attrs.push('type="' + image.type + '"');
   if (image.sizes)   attrs.push('sizes="' + image.sizes + '"');
-  if (image.density) attrs.push('density="' + image.density + '"');
   if (image.src)     attrs.push('href="' + image.src + '"');
 
   return attrs.join(' ');
@@ -184,7 +167,7 @@ function generateHead(form) {
 
   meta.push('<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">');
 
-  if (form.icons || form.splash_screens) {
+  if (form.icons) {
     meta.push('');
   }
 
@@ -193,13 +176,6 @@ function generateHead(form) {
       var attrs = getImageAttrs(icon);
       meta.push('<link rel="icon" ' + attrs + '>');
       meta.push('<link rel="apple-touch-icon" ' + attrs + '>');
-    });
-  }
-
-  if (form.splash_screens) {
-    form.splash_screens.forEach(function(splash) {
-      var attrs = getImageAttrs(splash);
-      meta.push('<link rel="apple-touch-startup-image" ' + attrs + '>');
     });
   }
 

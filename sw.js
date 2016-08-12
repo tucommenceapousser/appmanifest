@@ -6,7 +6,7 @@ var cdn = {
 var vendor = {
   bootstrap: 'https://npmcdn.com/bootstrap@4.0.0-alpha.2',
   fontAwesome: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3',
-  raven: 'https://npmcdn.com/raven-js@3.0.4'
+  raven: 'https://npmcdn.com/raven-js@3.4.1'
 };
 
 var URLS = {
@@ -31,8 +31,8 @@ var URLS = {
 }
 
 var CACHE_NAMES = {
-  app: 'app-cache-v2',
-  vendor: 'vendor-cache-v2'
+  app: 'app-cache-v3',
+  vendor: 'vendor-cache-v3'
 };
 
 function isVendor(url) {
