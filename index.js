@@ -1,10 +1,5 @@
 (function(){
 
-// redirect gh-pages http -> https, to allow sw to work
-if (window.location.host === 'tomitm.github.io' && window.location.protocol !== 'https:') {
-  window.location.protocol = 'https:';
-}
-
 var appPathExp = new RegExp('^https?:\/\/tomitm.github.io\/appmanifest\/.*');
 var npmPathExp = new RegExp('^https?:\/\/npmcdn.com\/appmanifest\/.*');
 var ravenConfig = {
@@ -21,6 +16,8 @@ var elements = {
   output: document.querySelector('#output pre'),
   iconTable: document.querySelector('#icons tbody'),
   addIcon: document.querySelector('#add_icons'),
+  screenshotsTable: document.querySelector('#screenshots tbody'),
+  addScreenshot: document.querySelector('#add_screenshots'),
   relatedTable: document.querySelector('#related_applications tbody'),
   addRelated: document.querySelector('#add_related_applications'),
   copyManifest: document.querySelector('#copy_manifest'),
@@ -33,31 +30,38 @@ var elements = {
   toggles: document.querySelectorAll('[data-toggle="collapse"]')
 };
 
+// when form inputs change, update the manifest output
 elements.form.addEventListener('change', updateOutput);
 
+// when colour inputs change, update their borders for a nice effect
 Array.prototype.slice.call(elements.colors).map(function(element) {
   element.addEventListener('change', setBorderColor);
 });
 
-Array.prototype.slice.call(elements.toggles).map(function(element) {
-  element.addEventListener('click', toggle);
-});
-
-elements.addIcon.addEventListener('click', addIconRow);
-elements.addRelated.addEventListener('click', addRelatedRow);
-
-elements.copyManifest.addEventListener('click', copy.bind(this, elements.outputManifest));
-elements.copyHead.addEventListener('click', copy.bind(this, elements.outputHead));
-
 function setBorderColor() {
   this.style['border-color'] = this.value;
 }
+
+// toggle to show more/less
+Array.prototype.slice.call(elements.toggles).map(function(element) {
+  element.addEventListener('click', toggle);
+});
 
 function toggle() {
   document.querySelector(this.dataset.target).classList.toggle('in');
   var text = this.innerText === 'More...' ? 'Less...' : 'More...';
   this.innerText = text;
 }
+
+// add buttons for additional rows
+elements.addIcon.addEventListener('click', addIconRow);
+elements.addRelated.addEventListener('click', addRelatedRow);
+elements.addScreenshot.addEventListener('click', addScreenshotsRow);
+
+// copy buttons
+elements.copyManifest.addEventListener('click', copy.bind(this, elements.outputManifest));
+elements.copyHead.addEventListener('click', copy.bind(this, elements.outputHead));
+
 
 function createInput(label, id, name, placeholder) {
   return '<td>' +
@@ -67,26 +71,41 @@ function createInput(label, id, name, placeholder) {
           '</td>';
 }
 
-function addIconRow() {
-  var index = elements.iconTable.children.length - 1;
+function appendTable(table, innerHTML) {
   var tr = document.createElement('tr');
-  tr.innerHTML = [
-    createInput('URL', 'icons_'+index+'_src', 'icons['+index+'][src]', 'homescreen.png'),
-    createInput('Sizes', 'icons_'+index+'_sizes', 'icons['+index+'][sizes]', '192x192'),
-    createInput('Type', 'icons_'+index+'_type', 'icons['+index+'][type]', 'image/png')
-  ].join('\n');
-  elements.iconTable.insertBefore(tr, elements.iconTable.lastElementChild);
+  var index = table.children.length - 1;
+  tr.innerHTML = innerHTML(index);
+  table.insertBefore(tr, table.lastElementChild);
+}
+
+function addIconRow() {
+  appendTable(elements.iconTable, function(index) {
+    return [
+      createInput('URL', 'icons_'+index+'_src', 'icons['+index+'][src]', 'homescreen.png'),
+      createInput('Sizes', 'icons_'+index+'_sizes', 'icons['+index+'][sizes]', '192x192'),
+      createInput('Type', 'icons_'+index+'_type', 'icons['+index+'][type]', 'image/png')
+    ].join('\n');
+  });
+}
+
+function addScreenshotsRow() {
+  appendTable(elements.screenshotsTable, function(index) {
+    return [
+      createInput('URL', 'screenshots_'+index+'_src', 'screenshots['+index+'][src]', 'screenshots/in-app.png'),
+      createInput('Sizes', 'screenshots_'+index+'_sizes', 'screenshots['+index+'][sizes]', '1280x920'),
+      createInput('Type', 'screenshots_'+index+'_type', 'screenshots['+index+'][type]', 'image/png')
+    ].join('\n');
+  });
 }
 
 function addRelatedRow() {
-  var index = elements.relatedTable.children.length - 1;
-  var tr = document.createElement('tr');
-  tr.innerHTML = [
-    createInput('Platform', 'related_'+index+'_platform', 'related_applications['+index+'][platform]', 'play'),
-    createInput('ID', 'related_'+index+'_id', 'related_applications['+index+'][id]', 'com.example.app'),
-    createInput('URL', 'related_'+index+'_url', 'related_applications['+index+'][url]', 'https://play.google.com/store/apps/details?id=com.example.app1')
-  ].join('\n');
-  elements.relatedTable.insertBefore(tr, elements.relatedTable.lastElementChild);
+  appendTable(elements.relatedTable, function(index) {
+    return [
+      createInput('Platform', 'related_'+index+'_platform', 'related_applications['+index+'][platform]', 'play'),
+      createInput('ID', 'related_'+index+'_id', 'related_applications['+index+'][id]', 'com.example.app'),
+      createInput('URL', 'related_'+index+'_url', 'related_applications['+index+'][url]', 'https://play.google.com/store/apps/details?id=com.example.app1')
+    ].join('\n')
+  });
 }
 
 function getFormData() {
@@ -112,8 +131,8 @@ function getFormData() {
         }
       }
 
-      var array = element.name.split('['); // icon is object array: icon[0][src]
-      if (array.length === 1) { // not icon, simple assignment
+      var array = element.name.split('['); // icon/screenshots/related are object array: icon[0][src]
+      if (array.length === 1) { // not icon/etc, simple assignment
         form[element.name] = value;
         return form;
       }
@@ -168,10 +187,8 @@ function generateHead(form) {
   meta.push('<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">');
 
   if (form.icons) {
-    meta.push('');
-  }
+    meta.push(''); // add spacer for aesthetics
 
-  if (form.icons) {
     form.icons.forEach(function(icon) {
       var attrs = getImageAttrs(icon);
       meta.push('<link rel="icon" ' + attrs + '>');

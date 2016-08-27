@@ -71,7 +71,8 @@
         border-top: none;
       }
 
-      #icons td:nth-child(0n+3) { /* type */
+      #icons td:nth-child(0n+3),
+      #screenshots td:nth-child(0n+3) { /* type */
         max-width: 8rem;
       }
 
@@ -355,6 +356,42 @@
                     <small class="text-muted">Whether to show the native app banner before the web app install banner</small>
                   </label>
                 </div>
+                <span class="collapse" id="more-apps">
+                  <label>Screenshots</label>
+                  <table class="table table-sm" id="screenshots">
+                    <thead>
+                      <tr>
+                        <th>URL</th>
+                        <th>Sizes</th>
+                        <th>Type</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <label class="sr-only" for="screenshots_0_src">URL</label>
+                          <input type="text" class="form-control form-control-sm" id="screenshots_0_src"
+                              name="screenshots[0][src]" placeholder="screenshots/in-app.png" />
+                        </td>
+                        <td>
+                          <label class="sr-only" for="screenshots_0_sizes">Sizes</label>
+                          <input type="text" class="form-control form-control-sm" id="screenshots_0_sizes"
+                              name="screenshots[0][sizes]" placeholder="1280x920" />
+                        </td>
+                        <td>
+                          <label class="sr-only" for="screenshots_0_type">Type</label>
+                          <input type="text" class="form-control form-control-sm" id="screenshots_0_type"
+                              name="screenshots[0][type]" placeholder="image/png" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="4"><a class="btn btn-link btn-sm" id="add_screenshots">Add another...</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </span>
+                <a class="btn btn-link btn-sm btn-collapse text-muted" data-toggle="collapse" data-target="#more-apps">More...</a>
               </div>
             </div>
 
@@ -401,8 +438,8 @@
     </footer>
   </div>
   <div id="messages"></div>
-  <script src="https://npmcdn.com/raven-js@3.4.1/dist/raven.min.js"
-          integrity="sha384-mFMeuiDmEJB2AVsb4kUXXQMKL2FxM8RD2/Bd7x9Y/9KLMwHZ6tkKnUo5+V8Ne4p8" crossorigin="anonymous"></script>
+  <script src="https://npmcdn.com/raven-js@3.5.1/dist/raven.min.js"
+          integrity="sha384-pAZCrdNBE9CBYI0AmSOmTtkWtbbYNaTy0VtzobrZl+YmxZruvE5Kjheb03Fgkt4C" crossorigin="anonymous"></script>
   <script src="index.js" charset="utf-8"></script>
 </body>
 </html>
