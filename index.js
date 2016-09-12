@@ -1,9 +1,9 @@
 (function(){
 
 var appPathExp = new RegExp('^https?:\/\/tomitm.github.io\/appmanifest\/.*');
-var npmPathExp = new RegExp('^https?:\/\/npmcdn.com\/appmanifest\/.*');
+var unpkgPathExp = new RegExp('^https?:\/\/unpkg.com\/appmanifest\/.*');
 var ravenConfig = {
-  whitelistUrls: [appPathExp, npmPathExp],
+  whitelistUrls: [appPathExp, unpkgPathExp],
   includeUrls: [appPathExp]
 }
 

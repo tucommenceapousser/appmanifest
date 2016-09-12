@@ -1,12 +1,12 @@
 var cdn = {
-  npm: 'https://npmcdn.com',
+  unpkg: 'https://unpkg.com',
   max: 'https://maxcdn.bootstrapcdn.com'
 }
 
 var vendor = {
-  bootstrap: 'https://npmcdn.com/bootstrap@4.0.0-alpha.2',
+  bootstrap: 'https://unpkg.com/bootstrap@4.0.0-alpha.2',
   fontAwesome: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3',
-  raven: 'https://npmcdn.com/raven-js@3.5.1'
+  raven: 'https://unpkg.com/raven-js@3.7.0'
 };
 
 var URLS = {
@@ -31,12 +31,12 @@ var URLS = {
 }
 
 var CACHE_NAMES = {
-  app: 'app-cache-v4',
-  vendor: 'vendor-cache-v4'
+  app: 'app-cache-v5',
+  vendor: 'vendor-cache-v5'
 };
 
 function isVendor(url) {
-  return url.startsWith(cdn.npm) || url.startsWith(cdn.max);
+  return url.startsWith(cdn.unpkg) || url.startsWith(cdn.max);
 }
 
 function cacheAll(cacheName, urls) {
