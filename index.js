@@ -1,15 +1,5 @@
 (function(){
 
-var appPathExp = new RegExp('^https?:\/\/tomitm.github.io\/appmanifest\/.*');
-var unpkgPathExp = new RegExp('^https?:\/\/unpkg.com\/appmanifest\/.*');
-var ravenConfig = {
-  whitelistUrls: [appPathExp, unpkgPathExp],
-  includeUrls: [appPathExp]
-}
-
-// thanks @mitchhentges for hosting
-Raven.config('https://de036bea98de4585b546148f6adfc1b6@sentry.fuzzlesoft.ca/3', ravenConfig).install()
-
 var elements = {
   form: document.querySelector('form'),
   lang: document.querySelector('#lang'),
@@ -17,14 +7,17 @@ var elements = {
   iconTable: document.querySelector('#icons tbody'),
   addIcon: document.querySelector('#add_icons'),
   screenshotsTable: document.querySelector('#screenshots tbody'),
+  shortcutsTable: document.querySelector('#shortcuts tbody'),
+  handlersTable: document.querySelector('#handlers tbody'),
   addScreenshot: document.querySelector('#add_screenshots'),
+  addShortcut: document.querySelector('#add_shortcuts'),
+  addHandler: document.querySelector('#add_handlers'),
   relatedTable: document.querySelector('#related_applications tbody'),
   addRelated: document.querySelector('#add_related_applications'),
   copyManifest: document.querySelector('#copy_manifest'),
   outputManifest: document.querySelector('#output_manifest'),
   copyHead: document.querySelector('#copy_head'),
   outputHead: document.querySelector('#output_head'),
-  footer: document.querySelector('footer small'),
   messages: document.querySelector('#messages'),
   colors: document.querySelectorAll('.form-control-color'),
   toggles: document.querySelectorAll('[data-toggle="collapse"]')
@@ -57,6 +50,8 @@ function toggle() {
 elements.addIcon.addEventListener('click', addIconRow);
 elements.addRelated.addEventListener('click', addRelatedRow);
 elements.addScreenshot.addEventListener('click', addScreenshotsRow);
+elements.addShortcut.addEventListener('click', addShortcutRow);
+elements.addHandler.addEventListener('click', addHandlerRow);
 
 // copy buttons
 elements.copyManifest.addEventListener('click', copy.bind(this, elements.outputManifest));
@@ -94,6 +89,26 @@ function addScreenshotsRow() {
       createInput('URL', 'screenshots_'+index+'_src', 'screenshots['+index+'][src]', 'screenshots/in-app.png'),
       createInput('Sizes', 'screenshots_'+index+'_sizes', 'screenshots['+index+'][sizes]', '1280x920'),
       createInput('Type', 'screenshots_'+index+'_type', 'screenshots['+index+'][type]', 'image/png')
+    ].join('\n');
+  });
+}
+
+function addShortcutRow() {
+  appendTable(elements.shortcutsTable, function(index) {
+    return [
+      createInput('URL', 'shortcuts_'+index+'_url', 'shortcuts['+index+'][url]', '/settings'),
+      createInput('Name', 'shortcuts_'+index+'_name', 'shortcuts['+index+'][name]', 'App Settings'),
+      createInput('Short Name', 'shortcuts_'+index+'_short_name', 'shortcuts['+index+'][short_name]', 'Settings'),
+      createInput('Description', 'shortcuts_'+index+'_description', 'shortcuts['+index+'][description]', 'Edit your settings')
+    ].join('\n');
+  });
+}
+
+function addHandlerRow() {
+  appendTable(elements.handlersTable, function(index) {
+    return [
+      createInput('Protocol', 'handlers_'+index+'_protocol', 'handlers['+index+'][protocol]', 'web+search'),
+      createInput('URL', 'handlers_'+index+'_url', 'handlers['+index+'][url]', '/search?q=%s')
     ].join('\n');
   });
 }
@@ -247,17 +262,6 @@ function reset() {
   updateOutput();
 }
 
-var footers = [
-  '',
-  ' <i class="fa fa-rocket"></i>',
-  ' to make the web great again',
-  ' who wants more web apps on his homescreen',
-  ' who is tired of seeing browser UI',
-  ' because it\'s ' + new Date().getFullYear()
-];
-var rand = Math.floor(Math.random() * footers.length);
-elements.footer.innerHTML += footers[rand];
-
 reset();
 
 var shouldRegister = window.location.protocol === 'https:' || window.location.hostname === 'localhost';
@@ -275,7 +279,6 @@ if ('serviceWorker' in navigator && shouldRegister) {
       };
     };
   }).catch(function(err) {
-    Raven.captureException(err);
     console.log('sw failure', err);
   });
 }

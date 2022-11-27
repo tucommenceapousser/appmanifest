@@ -6,7 +6,6 @@ var cdn = {
 var vendor = {
   bootstrap: 'https://unpkg.com/bootstrap@4.0.0-alpha.2',
   fontAwesome: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3',
-  raven: 'https://unpkg.com/raven-js@3.7.0'
 };
 
 var URLS = {
@@ -26,7 +25,6 @@ var URLS = {
     `${vendor.bootstrap}/dist/css/bootstrap.min.css`,
     `${vendor.fontAwesome}/css/font-awesome.min.css`,
     `${vendor.fontAwesome}/fonts/fontawesome-webfont.woff2`, // browsers that support sw support woff2
-    `${vendor.raven}/dist/raven.min.js`
   ]
 }
 
