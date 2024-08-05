@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Web App Manifest Generator</title>
-
     <link rel="manifest" href="manifest.json">
 
     <meta name="mobile-web-app-capable" content="yes">
@@ -24,8 +23,8 @@
 
     <meta name="application-name" content="Manifest Generator">
     <meta name="apple-mobile-web-app-title" content="Manifest Generator">
-    <meta name="theme-color" content="#0275d8">
-    <meta name="msapplication-navbutton-color" content="#0275d8">
+    <meta name="theme-color" content="#00f0ff">
+    <meta name="msapplication-navbutton-color" content="#00f0ff">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="msapplication-starturl" content="/appmanifest/">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -51,95 +50,84 @@
     <style media="screen">
       body {
         margin-top: 75px;
-      }
-
-      .btn-collapse text-muted {
-        padding: 0.15rem 0.75rem;
-        margin-top: -.5rem;
-      }
-
-      .btn-copy {
-        float: right;
-        color: #ccc;
-        cursor: pointer;
+        background-color: #000;
+        color: #00f0ff;
+        font-family: 'Courier New', Courier, monospace;
       }
 
       .navbar {
-        box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+        background-color: #000;
+        color: #00f0ff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.6);
       }
 
-      #icons td {
-        border-top: none;
+      .navbar-brand {
+        color: #00f0ff !important;
       }
 
-      #icons td:nth-child(0n+3),
-      #screenshots td:nth-child(0n+3) { /* type */
-        max-width: 8rem;
+      .navbar-nav .nav-link {
+        color: #00f0ff !important;
       }
 
-      #handlers td:first-child { /* protocol */
-        max-width: 6rem;
+      .card {
+        background-color: #111;
+        color: #00f0ff;
+        border: 1px solid #222;
       }
 
-      #related_applications td:nth-child(0n+1) { /* platform */
-        max-width: 6rem;
+      .btn-collapse {
+        color: #00f0ff;
+      }
+
+      .btn-copy {
+        color: #00f0ff;
       }
 
       .output {
-        background-color: #fbfbfb;
-        color: #999;
-      }
-
-      #notes ul {
-        padding-left: 1.5rem;
-      }
-
-      #notes li {
-        margin-bottom: .25em;
-      }
-
-      #messages {
-        position: fixed;
-        left: 1rem;
-        bottom: 1.5rem;
-        max-width: 90%;
+        background-color: #111;
+        color: #00f0ff;
+        border: 1px solid #222;
       }
 
       #messages .message {
-        padding: .5rem 1rem;
-        margin-top: .5rem;
-        color: #eceeef;
-        background-color: rgba(55, 58, 60, .9);
-        box-shadow: 0 2px 5px rgba(0,0,0,0.26);
-        will-change: opacity;
-        opacity: 0;
-        transition: opacity 0.25s ease-in-out;
-      }
-
-      #messages .message i {
-        margin-right: .5rem;
-      }
-
-      #messages .message.active {
-        will-change: opacity;
-        opacity: 1;
-        transition: opacity 0.25s ease-in-out;
+        background-color: rgba(0, 255, 255, .9);
+        color: #000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.6);
       }
 
       .footer {
-        border-top: 1px solid silver;
+        border-top: 1px solid #222;
         padding: 30px 10px;
         margin-top: 15px;
-        color: #818a91;
+        color: #00f0ff;
       }
 
-      .footer a i {
-        color: #000;
+      .footer a {
+        color: #00f0ff;
+      }
+
+      .form-control {
+        background-color: #222;
+        color: #00f0ff;
+        border: 1px solid #333;
+      }
+
+      .form-control::placeholder {
+        color: #777;
+      }
+
+      .table {
+        color: #00f0ff;
+      }
+
+      .table th,
+      .table td {
+        border: 1px solid #333;
       }
     </style>
-  </head>
-  <body>
-    <nav class="navbar navbar-fixed-top navbar-dark bg-primary">
+</head>
+<body>
+    <nav class="navbar navbar-fixed-top navbar-dark">
       <a class="navbar-brand hidden-xs-down">Web App Manifest Generator</a>
       <a class="navbar-brand hidden-sm-up">Manifest Generator</a>
       <ul class="nav navbar-nav pull-xs-right">
@@ -492,10 +480,13 @@
       </div>
     </div>
     <footer class="footer">
-      <small>Built by <a href="https://github.com/tomitm" target="_blank" rel="noopener">tomitm</a> and contributors</small>
+      <small>Built by <a href="https://github.com/tomitm" target="_blank" rel="noopener">trhacknon</a> and contributors</small>
     </footer>
   </div>
   <div id="messages"></div>
   <script src="index.js" charset="utf-8"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl4+z1j3d5gFfsF1j6aL3LJ9+1p9eETr/YXz9Fu6iFZ" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-3w2k4LZ8DrZB0hl1nSk8wIn9OS8IT7o5mH5gAf3bILF5tvwof26D4Mt0J9NViYhL" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/dist/js/bootstrap.min.js" integrity="sha384-1M4Hf1WBzSRA+f2PjYoCM6Rk4w6RVZAcj58udO92zVyyCCnDiycb1nW6h6LZW5Qd" crossorigin="anonymous"></script>
 </body>
 </html>
