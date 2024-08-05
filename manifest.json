@@ -8,6 +8,13 @@
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#0275d8",
+      "screenshots": [
+    {
+      "src": "https://d.top4top.io/p_313973x0h0.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
   "icons": [
     {
       "src": "res/icon_hi_res_512.png",
